@@ -39,7 +39,7 @@
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.20.0",
     "autoprefixer": "^10.4.4",
-    "browserslist": "^4.20.2",
+    "browserslist": "^4.20.3",
     "cspell": "^5.19.7",
     "cssnano": "^5.1.7",
     "esbuild": "^0.14.36",
