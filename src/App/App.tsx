@@ -69,7 +69,7 @@ export const App = React.memo(function App() {
     const claimResult = await daiContract.claim(
       walletAddress,
       worldIDProof.merkleRoot,
-      worldIDProof.nullifierHash,
+      worldIDProof.uniquenessHash,
       abi.decode(["uint256[8]"], worldIDProof.proof)[0],
       { gasLimit: 10000000 },
     );
@@ -165,7 +165,7 @@ export const App = React.memo(function App() {
               <div className="grid w-full max-w-[254px] gap-y-8">
                 {walletAddress && (
                   <WorldIDComponent
-                    proofSignal={walletAddress}
+                    signal={walletAddress}
                     setProof={(proof) => setWorldIDProof(proof)}
                   />
                 )}
