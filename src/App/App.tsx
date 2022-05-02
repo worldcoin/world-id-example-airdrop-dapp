@@ -69,7 +69,7 @@ export const App = React.memo(function App() {
     const claimResult = await daiContract.claim(
       walletAddress,
       worldIDProof.merkleRoot,
-      worldIDProof.uniquenessHash,
+      worldIDProof.nullifierHash,
       abi.decode(["uint256[8]"], worldIDProof.proof)[0],
       { gasLimit: 10000000 },
     );
