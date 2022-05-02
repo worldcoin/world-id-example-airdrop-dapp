@@ -2,6 +2,7 @@ import { defaultAbiCoder as abi } from "@ethersproject/abi";
 import type { VerificationResponse } from "@worldcoin/id";
 import worldID from "@worldcoin/id";
 import React from "react";
+import { CONTRACT_ADDRESS } from "./const";
 
 export const WorldIDComponent = ({
   signal,
@@ -23,8 +24,7 @@ export const WorldIDComponent = ({
   React.useEffect(() => {
     if (!worldID.isInitialized()) {
       worldID.init("world-id-container", {
-        actionId:
-          "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000116d657368614170702f61697264726f7031000000000000000000000000000000",
+        actionId: CONTRACT_ADDRESS,
         signal: abi.encode(["address"], [signal]),
       });
     }
