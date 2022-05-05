@@ -5,6 +5,13 @@ import worldID from "@worldcoin/id";
 import React from "react";
 import { CONTRACT_ADDRESS } from "./const";
 
+const hashBytes = (input: string): string => {
+  return abi.encode(
+    ["uint256"],
+    [BigInt(keccak256(["bytes"], [input])) >> BigInt(8)],
+  );
+};
+
 export const WorldIDComponent = ({
   signal,
   setProof,
@@ -25,10 +32,7 @@ export const WorldIDComponent = ({
   React.useEffect(() => {
     if (!worldID.isInitialized()) {
       worldID.init("world-id-container", {
-        actionId: abi.encode(
-          ["uint256"],
-          [BigInt(keccak256(["bytes"], [CONTRACT_ADDRESS])) >> BigInt(8)],
-        ),
+        actionId: hashBytes(CONTRACT_ADDRESS),
         signal,
       });
     }
