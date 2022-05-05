@@ -1,4 +1,5 @@
 import { defaultAbiCoder as abi } from "@ethersproject/abi";
+import { keccak256 } from "@ethersproject/solidity";
 import type { VerificationResponse } from "@worldcoin/id";
 import worldID from "@worldcoin/id";
 import React from "react";
@@ -24,8 +25,11 @@ export const WorldIDComponent = ({
   React.useEffect(() => {
     if (!worldID.isInitialized()) {
       worldID.init("world-id-container", {
-        actionId: CONTRACT_ADDRESS,
-        signal: abi.encode(["address"], [signal]),
+        actionId: abi.encode(
+          ["uint256"],
+          [BigInt(keccak256(["bytes"], [CONTRACT_ADDRESS])) >> BigInt(8)],
+        ),
+        signal,
       });
     }
     if (!worldID.isEnabled()) {
