@@ -16,7 +16,7 @@ export const provider = new WalletConnectProvider({
 
 export const CONTRACT_ADDRESS =
   process.env.WLD_CONTRACT_ADDRESS || // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
-  "0x330C8452C879506f313D1565702560435b0fee4C";
+  "0x32D59776E91fdb3F377755e12cEC05d9067c2B4F";
 
 export const CONTRACT_ABI = [
   // Function to claim the airdrop
