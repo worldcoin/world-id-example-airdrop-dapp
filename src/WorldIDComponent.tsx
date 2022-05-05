@@ -2,12 +2,13 @@ import { defaultAbiCoder as abi } from "@ethersproject/abi";
 import type { VerificationResponse } from "@worldcoin/id";
 import worldID from "@worldcoin/id";
 import React from "react";
+import { CONTRACT_ADDRESS } from "./const";
 
 export const WorldIDComponent = ({
-  proofSignal,
+  signal,
   setProof,
 }: {
-  proofSignal: string;
+  signal: string;
   setProof: (proof: VerificationResponse) => void;
 }): JSX.Element => {
   const enableWorldID = async (): Promise<void> => {
@@ -23,9 +24,8 @@ export const WorldIDComponent = ({
   React.useEffect(() => {
     if (!worldID.isInitialized()) {
       worldID.init("world-id-container", {
-        externalNullifier:
-          "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000116d657368614170702f61697264726f7031000000000000000000000000000000",
-        proofSignal: abi.encode(["address"], [proofSignal]),
+        actionId: CONTRACT_ADDRESS,
+        signal: abi.encode(["address"], [signal]),
       });
     }
     if (!worldID.isEnabled()) {

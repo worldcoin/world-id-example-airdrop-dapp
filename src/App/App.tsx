@@ -165,7 +165,7 @@ export const App = React.memo(function App() {
               <div className="grid w-full max-w-[254px] gap-y-8">
                 {walletAddress && (
                   <WorldIDComponent
-                    proofSignal={walletAddress}
+                    signal={walletAddress}
                     setProof={(proof) => setWorldIDProof(proof)}
                   />
                 )}
