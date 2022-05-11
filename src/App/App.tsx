@@ -49,7 +49,7 @@ export const App = React.memo(function App() {
   }, [provider]);
 
   const logout = () => {
-    provider?.disconnect().catch(console.error.bind(console));
+    provider.disconnect().catch(console.error.bind(console));
     window.location.reload();
   };
 
@@ -132,7 +132,7 @@ export const App = React.memo(function App() {
         {screen !== Screen.Congratulations && (
           <div className="grid justify-items-center gap-y-3 justify-self-center text-ffffff xs:gap-y-4">
             <h1 className="text-16 font-bold xs:text-24">
-              BIGGEST AIRDROP IS HERE!
+              The Development branch is here!
             </h1>
 
             <div className="mt-2 grid justify-items-center text-48 lg:text-80 xs:mt-0 xs:block">
