@@ -111,7 +111,7 @@ export const App = React.memo(function App() {
             className="text-20 font-bold text-ffffff xs:text-32"
             style={{ flexGrow: 1 }}
           >
-            Mesha
+            KATAN PROTOCOL
           </p>
           {walletAddress && (
             <div className="font-bold text-ffffff">
@@ -136,13 +136,15 @@ export const App = React.memo(function App() {
             </h1>
 
             <div className="mt-2 grid justify-items-center text-48 lg:text-80 xs:mt-0 xs:block">
-              <span className="font-black text-df57bc ">Get $50 </span>
-              <span className="font-black">in Mesha</span>
+              <span className="font-black text-df57bc ">
+                Mint Your Credit Score Today{" "}
+              </span>
+              <span className="font-black">with Katan</span>
             </div>
 
             <p className="mb-5 text-center text-14 xs:mb-8 xs:text-18">
-              Mesha is live and ready to use. Login to claim your tokens for
-              free.
+              Katan is live and ready to use. Login to find out your credit
+              score.
             </p>
 
             {screen === Screen.Initial && (
@@ -228,7 +230,8 @@ export const App = React.memo(function App() {
           )}
         >
           <span>
-            Mesha is a mock client app to showcase how World ID works.{" "}
+            Katan is a dApp which showcases WorldID and yields a credit score
+            for a user.{" "}
           </span>
           <a
             href="/"
