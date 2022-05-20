@@ -132,7 +132,7 @@ export const App = React.memo(function App() {
         {screen !== Screen.Congratulations && (
           <div className="grid justify-items-center gap-y-3 justify-self-center text-ffffff xs:gap-y-4">
             <h1 className="text-16 font-bold xs:text-24">
-              The Development branch is here!
+              KATAN DEMO IS LIVE!
             </h1>
 
             <div className="mt-2 grid justify-items-center text-48 lg:text-80 xs:mt-0 xs:block">
