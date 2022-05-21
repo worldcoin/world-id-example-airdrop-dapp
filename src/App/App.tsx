@@ -115,9 +115,7 @@ export const App = React.memo(function App() {
           <p
             className="text-20 font-bold text-ffffff xs:text-32"
             style={{ flexGrow: 1 }}
-          >
-            KATAN PROTOCOL
-          </p>
+          ></p>
           {walletAddress && (
             <div className="font-bold text-ffffff">
               {midEllipsis(walletAddress, 12)}{" "}
