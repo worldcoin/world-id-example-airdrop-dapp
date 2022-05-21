@@ -53,6 +53,9 @@ html {
     "Segoe UI Symbol",
     "Noto Color Emoji";
 }
+.terque{
+  height:150px;
+}
 body {
   margin: 0;
   line-height: inherit;
