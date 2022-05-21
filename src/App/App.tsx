@@ -107,6 +107,11 @@ export const App = React.memo(function App() {
         )}
       >
         <header className="flex items-center py-2.5">
+          <img
+            src="katanProtocol-terque.png"
+            className="terque"
+            alt="logo for katan"
+          />
           <p
             className="text-20 font-bold text-ffffff xs:text-32"
             style={{ flexGrow: 1 }}
