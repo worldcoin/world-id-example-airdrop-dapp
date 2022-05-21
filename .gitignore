@@ -22,3 +22,9 @@ dist-ssr
 .eslintcache
 .stylelintcache
 .vercel
+
+cache/
+out/
+remappings.txt
+node_modules
+.env
