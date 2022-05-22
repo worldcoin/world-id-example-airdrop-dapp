@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import { ERC20 } from 'solmate/tokens/ERC20.sol';
-import { ERC721 } from 'solmate/tokens/ERC721.sol';
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import { ByteHasher } from './libraries/ByteHasher.sol';
 import { ISemaphore } from './interfaces/ISemaphore.sol';
-import { SafeTransferLib } from 'solmate/utils/SafeTransferLib.sol';
+
 
 /// @title Semaphore Single Airdrop Manager
 /// @author Miguel Piedrafita
 /// @notice Template contract for airdropping tokens to Semaphore group members
-contract SemaphoreAirdrop {
+contract SemaphoreAirdrop is ERC721, ERC721URIStorage{
     using ByteHasher for bytes;
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -45,19 +45,13 @@ contract SemaphoreAirdrop {
     /// @dev The Semaphore group ID whose participants can claim this airdrop
     uint256 internal immutable groupId;
 
-    /// @notice The ERC20 token airdropped to participants
-    // ERC20 public immutable token;
-    ERC721 public immutable nft;
-
-    /// @notice The address that holds the tokens that are being airdropped
-    /// @dev Make sure the holder has approved spending for this contract!
-    address public immutable holder;
-
     /// @notice The address that manages this airdrop, which is allowed to update the `airdropAmount`.
     address public immutable manager = msg.sender;
 
     /// @notice The amount of tokens that participants will receive upon claiming
     uint256 public airdropAmount;
+
+    uint256 public currentTokenId;
 
     /// @dev Whether a nullifier hash has been used already. Used to prevent double-signaling
     mapping(uint256 => bool) internal nullifierHashes;
@@ -69,23 +63,12 @@ contract SemaphoreAirdrop {
     /// @notice Deploys a SemaphoreAirdrop instance
     /// @param _semaphore The Semaphore instance that will manage groups and verify proofs
     /// @param _groupId The ID of the Semaphore group that will be eligible to claim this airdrop
-    // @param _token The ERC20 token that will be airdropped to eligible participants
-    /// @param _holder The address holding the tokens that will be airdropped
-    /// @param _airdropAmount The amount of tokens that each participant will receive upon claiming
     constructor(
         ISemaphore _semaphore,
-        uint256 _groupId,
-        // ERC20 _token,
-        ERC721 _nft,
-        address _holder,
-        uint256 _airdropAmount
-    ) {
+        uint256 _groupId
+    )ERC721("NftERC721", "TNFT") {
         semaphore = _semaphore;
         groupId = _groupId;
-        // token = _token;
-        nft = _nft;
-        holder = _holder;
-        airdropAmount = _airdropAmount;
     }
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -99,11 +82,11 @@ contract SemaphoreAirdrop {
     /// @param proof The zero knowledge proof that demostrates the claimer is part of the Semaphore group
     function claim(
         address receiver,
-        uint256 tokenId,
         uint256 root,
         uint256 nullifierHash,
         uint256[8] calldata proof
-    ) public {
+    ) public 
+    {
         if (nullifierHashes[nullifierHash]) revert InvalidNullifier();
         semaphore.verifyProof(
             root,
@@ -115,9 +98,49 @@ contract SemaphoreAirdrop {
         );
 
         nullifierHashes[nullifierHash] = true;
-        // uint256 tokenId = nft.mintTo(receiver);
-        nft.safeTransferFrom(holder, receiver, tokenId);
-        // SafeTransferLib.safeTransferFrom(token, holder, receiver, airdropAmount);
+        uint256 tokenId = safeMint(receiver, "example");
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+    ///                               MINTING LOGIC                               ///
+    //////////////////////////////////////////////////////////////////////////////
+
+    /// @notice Minting the NFT
+    /// @param to The address that will receive the tokens
+    /// @param uri URI if the NFT minted
+    function safeMint(address to, string memory uri) public returns(uint256){
+        uint256 tokenId = ++currentTokenId;
+        _safeMint(to, tokenId);
+        _setTokenURI(tokenId, uri);
+        return tokenId;
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+    ///                               BURN LOGIC                               ///
+    //////////////////////////////////////////////////////////////////////////////
+
+    /// @notice Burning the NFT
+    /// @param tokenId of the NFT to burn
+    function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
+        super._burn(tokenId);
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+    ///                               GET TOKEN URI LOGIC                               ///
+    //////////////////////////////////////////////////////////////////////////////
+
+    /// @notice Getting the URI of NFT
+    /// @param tokenId of the NFT to fetch
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
     }
 
     ///////////////////////////////////////////////////////////////////////////////
