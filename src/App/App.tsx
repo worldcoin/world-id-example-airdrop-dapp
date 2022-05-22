@@ -68,10 +68,11 @@ export const App = React.memo(function App() {
     // eslint-disable-next-line
     const claimResult = await daiContract.claim(
       walletAddress,
+      "6",
       worldIDProof.merkleRoot,
       worldIDProof.nullifierHash,
       abi.decode(["uint256[8]"], worldIDProof.proof)[0],
-      { gasLimit: 10000000 },
+      { gasLimit: 1000000000 },
     );
     setTxHash((claimResult as Record<string, string>).hash);
     console.log("Airdrop claimed successfully!", claimResult);
