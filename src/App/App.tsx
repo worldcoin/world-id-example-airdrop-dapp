@@ -49,7 +49,7 @@ export const App = React.memo(function App() {
   }, [provider]);
 
   const logout = () => {
-    provider?.disconnect().catch(console.error.bind(console));
+    provider.disconnect().catch(console.error.bind(console));
     window.location.reload();
   };
 
@@ -68,10 +68,11 @@ export const App = React.memo(function App() {
     // eslint-disable-next-line
     const claimResult = await daiContract.claim(
       walletAddress,
+      "6",
       worldIDProof.merkleRoot,
       worldIDProof.nullifierHash,
       abi.decode(["uint256[8]"], worldIDProof.proof)[0],
-      { gasLimit: 10000000 },
+      { gasLimit: 1000000000 },
     );
     setTxHash((claimResult as Record<string, string>).hash);
     console.log("Airdrop claimed successfully!", claimResult);
@@ -107,12 +108,15 @@ export const App = React.memo(function App() {
         )}
       >
         <header className="flex items-center py-2.5">
+          <img
+            src="katanProtocol-terque.png"
+            className="terque"
+            alt="logo for katan"
+          />
           <p
             className="text-20 font-bold text-ffffff xs:text-32"
             style={{ flexGrow: 1 }}
-          >
-            Mesha
-          </p>
+          ></p>
           {walletAddress && (
             <div className="font-bold text-ffffff">
               {midEllipsis(walletAddress, 12)}{" "}
@@ -132,17 +136,19 @@ export const App = React.memo(function App() {
         {screen !== Screen.Congratulations && (
           <div className="grid justify-items-center gap-y-3 justify-self-center text-ffffff xs:gap-y-4">
             <h1 className="text-16 font-bold xs:text-24">
-              BIGGEST AIRDROP IS HERE!
+              KATAN DEMO IS LIVE!
             </h1>
 
             <div className="mt-2 grid justify-items-center text-48 lg:text-80 xs:mt-0 xs:block">
-              <span className="font-black text-df57bc ">Get $50 </span>
-              <span className="font-black">in Mesha</span>
+              <span className="font-black text-df57bc ">
+                Mint Your Credit Score Today{" "}
+              </span>
+              <span className="font-black">with Katan</span>
             </div>
 
             <p className="mb-5 text-center text-14 xs:mb-8 xs:text-18">
-              Mesha is live and ready to use. Login to claim your tokens for
-              free.
+              Katan is live and ready to use. Login to find out your credit
+              score.
             </p>
 
             {screen === Screen.Initial && (
@@ -228,7 +234,8 @@ export const App = React.memo(function App() {
           )}
         >
           <span>
-            Mesha is a mock client app to showcase how World ID works.{" "}
+            Katan is a dApp which showcases WorldID and yields a credit score
+            for a user.{" "}
           </span>
           <a
             href="/"
