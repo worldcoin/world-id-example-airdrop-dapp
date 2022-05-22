@@ -72,7 +72,7 @@ export const App = React.memo(function App() {
       worldIDProof.merkleRoot,
       worldIDProof.nullifierHash,
       abi.decode(["uint256[8]"], worldIDProof.proof)[0],
-      { gasLimit: 1000000000 },
+      { gasLimit: 10000000 },
     );
     setTxHash((claimResult as Record<string, string>).hash);
     console.log("Airdrop claimed successfully!", claimResult);
