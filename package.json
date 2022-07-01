@@ -41,7 +41,7 @@
     "@typescript-eslint/parser": "5.30.0",
     "autoprefixer": "10.4.7",
     "browserslist": "4.21.1",
-    "cspell": "6.2.0",
+    "cspell": "6.2.2",
     "cssnano": "5.1.12",
     "esbuild": "0.14.48",
     "esbuild-plugin-browserslist": "0.4.12",
