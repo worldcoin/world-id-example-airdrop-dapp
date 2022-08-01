@@ -3,10 +3,10 @@ import { useToggle } from "@/common/hooks/use-toggle";
 import { Icon } from "@/common/Icon";
 import { CONTRACT_ABI, CONTRACT_ADDRESS, provider } from "@/const";
 import { midEllipsis } from "@/utils";
-import { WorldIDComponent } from "@/WorldIDComponent";
 import { defaultAbiCoder as abi } from "@ethersproject/abi";
 import successSvg from "@static/success.svg";
-import type { VerificationResponse } from "@worldcoin/id";
+import { utils as worldIDUtils, Widget } from "@worldcoin/id";
+import { VerificationResponse } from "@worldcoin/id/dist/types";
 import cn from "classnames";
 import { ethers } from "ethers";
 import React from "react";
@@ -164,9 +164,12 @@ export const App = React.memo(function App() {
             {screen === Screen.Confirm && (
               <div className="grid w-full max-w-[254px] gap-y-8">
                 {walletAddress && (
-                  <WorldIDComponent
+                  <Widget
                     signal={walletAddress}
-                    setProof={(proof) => setWorldIDProof(proof)}
+                    action_id={worldIDUtils.hashBytes(CONTRACT_ADDRESS).digest}
+                    on_success={(proof) => setWorldIDProof(proof)}
+                    // eslint-disable-next-line @typescript-eslint/no-empty-function
+                    on_error={() => {}}
                   />
                 )}
 
