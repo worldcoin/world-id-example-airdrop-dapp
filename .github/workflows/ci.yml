@@ -26,7 +26,7 @@ jobs:
 
     - run: npx prettier --check src/**
 
-    - uses: streetsidesoftware/cspell-action@v2.0.2
+    - uses: streetsidesoftware/cspell-action@v2.4.0
 
     - run: npm run build
 
