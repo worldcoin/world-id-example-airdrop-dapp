@@ -5,7 +5,7 @@ import { CONTRACT_ABI, CONTRACT_ADDRESS, provider } from "@/const";
 import { midEllipsis } from "@/utils";
 import { defaultAbiCoder as abi } from "@ethersproject/abi";
 import successSvg from "@static/success.svg";
-import { utils as worldIDUtils, Widget } from "@worldcoin/id";
+import { Widget } from "@worldcoin/id";
 import { VerificationResponse } from "@worldcoin/id/dist/types";
 import cn from "classnames";
 import { ethers } from "ethers";
@@ -166,7 +166,7 @@ export const App = React.memo(function App() {
                 {walletAddress && (
                   <Widget
                     signal={walletAddress}
-                    action_id={worldIDUtils.hashBytes(CONTRACT_ADDRESS).digest}
+                    action_id={CONTRACT_ADDRESS}
                     on_success={(proof) => setWorldIDProof(proof)}
                     // eslint-disable-next-line @typescript-eslint/no-empty-function
                     on_error={() => {}}
